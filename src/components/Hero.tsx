@@ -44,7 +44,7 @@ export default function Hero() {
           {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8 md:mb-0">
             <a 
-              href="https://tu-ecommerce.com"
+              href="https://www.promart.pe/?srsltid=AfmBOoqe2NP-W0iLFtWyhdCS1EnmIfqEqKuiGp0hCTAZRExSpeQ9ufza"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-amarillo-constructor text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
