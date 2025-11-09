@@ -5,6 +5,7 @@ import Products from '@/components/Products'
 import Services from '@/components/Services'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import FloatingEcommerceButton from '@/components/FloatingEcommerceButton'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Services />
       <Contact />
       <Footer />
+      <FloatingEcommerceButton />
     </main>
   )
 }
