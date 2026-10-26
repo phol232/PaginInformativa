@@ -1,10 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowUp, ShoppingCart } from 'lucide-react'
-import { site } from '@/lib/site'
+import { ArrowUp, MessageSquareText } from 'lucide-react'
 
-export default function FloatingEcommerceButton() {
+export default function FloatingContactButton() {
   const [showTop, setShowTop] = useState(false)
 
   useEffect(() => {
@@ -28,15 +27,13 @@ export default function FloatingEcommerceButton() {
         <ArrowUp className="h-5 w-5" aria-hidden="true" />
       </button>
       <a
-        href={site.storeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Ir a la tienda online"
+        href="#contacto"
+        aria-label="Solicitar información"
         className="group relative flex items-center gap-2.5 rounded-full bg-amber-500 px-5 py-3.5 font-semibold text-navy-950 shadow-[0_12px_32px_-8px_rgba(245,170,16,0.75)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-amber-400"
       >
         <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-amber-500/40 [animation-duration:2.5s]" aria-hidden="true" />
-        <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-        <span className="hidden sm:inline">Comprar ahora</span>
+        <MessageSquareText className="h-5 w-5" aria-hidden="true" />
+        <span className="hidden sm:inline">Solicitar información</span>
       </a>
     </div>
   )

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Menu, ShoppingCart, X } from 'lucide-react'
+import { Menu, MessageSquareText, X } from 'lucide-react'
 import { navItems, site } from '@/lib/site'
 import ThemeToggle from './ui/ThemeToggle'
 
@@ -94,13 +94,11 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <a
-            href={site.storeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contacto"
             className="btn-primary hidden px-5 py-2.5 text-sm sm:inline-flex"
           >
-            <ShoppingCart className="h-4 w-4" aria-hidden="true" />
-            Tienda Online
+            <MessageSquareText className="h-4 w-4" aria-hidden="true" />
+            Solicitar información
           </a>
           <button
             type="button"
@@ -137,13 +135,11 @@ export default function Header() {
             </a>
           ))}
           <a
-            href={site.storeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contacto"
             className="btn-primary mt-3 w-full sm:hidden"
           >
-            <ShoppingCart className="h-4 w-4" aria-hidden="true" />
-            Ir a Tienda Online
+            <MessageSquareText className="h-4 w-4" aria-hidden="true" />
+            Solicitar información
           </a>
         </nav>
       </div>

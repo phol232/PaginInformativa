@@ -1,4 +1,4 @@
-import { ChevronRight, Facebook, Instagram, Mail, MapPin, Phone, ShoppingCart } from 'lucide-react'
+import { ChevronRight, Facebook, Instagram, Mail, MapPin, MessageSquareText, Phone } from 'lucide-react'
 import { navItems, site } from '@/lib/site'
 
 const serviceLinks = [
@@ -23,13 +23,11 @@ export default function Footer() {
               Tu aliado confiable en construcción con más de 25 años de experiencia y cobertura a nivel nacional.
             </p>
             <a
-              href={site.storeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contacto"
               className="btn-primary mt-6 px-5 py-2.5 text-sm"
             >
-              <ShoppingCart className="h-4 w-4" aria-hidden="true" />
-              Tienda Online
+              <MessageSquareText className="h-4 w-4" aria-hidden="true" />
+              Solicitar información
             </a>
           </div>
 
