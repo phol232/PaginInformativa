@@ -1,157 +1,124 @@
 'use client'
 
-import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useMemo, useState } from 'react'
+import type { LucideIcon } from 'lucide-react'
+import {
+  ArrowRight,
+  BrickWall,
+  Cable,
+  Columns3,
+  Construction,
+  Crosshair,
+  Drill,
+  Droplets,
+  Hammer,
+  LayoutGrid,
+  Mountain,
+  Package,
+  PaintRoller,
+} from 'lucide-react'
+import SectionHeading from './ui/SectionHeading'
+import Reveal from './ui/Reveal'
 
-const products = [
-  {
-    name: 'Cemento Portland',
-    category: 'Materiales',
-    description: 'Cemento de alta calidad para construcción',
-    image: '🏗️',
-  },
-  {
-    name: 'Ladrillos',
-    category: 'Materiales',
-    description: 'Ladrillos de arcilla para muros y estructuras',
-    image: '🧱',
-  },
-  {
-    name: 'Varillas de Acero',
-    category: 'Materiales',
-    description: 'Varillas corrugadas para refuerzo estructural',
-    image: '🔩',
-  },
-  {
-    name: 'Arena y Piedra',
-    category: 'Materiales',
-    description: 'Agregados para concreto y mortero',
-    image: '⛰️',
-  },
-  {
-    name: 'Taladro Percutor',
-    category: 'Herramientas',
-    description: 'Herramienta eléctrica profesional',
-    image: '🔧',
-  },
-  {
-    name: 'Martillo Demoledor',
-    category: 'Herramientas',
-    description: 'Equipo pesado para demolición',
-    image: '⚒️',
-  },
-  {
-    name: 'Nivel Láser',
-    category: 'Herramientas',
-    description: 'Equipo de precisión para nivelación',
-    image: '📐',
-  },
-  {
-    name: 'Andamios',
-    category: 'Equipamiento',
-    description: 'Sistemas modulares de seguridad',
-    image: '🪜',
-  },
-  {
-    name: 'Pinturas y Barnices',
-    category: 'Acabados',
-    description: 'Productos de acabado y protección',
-    image: '🎨',
-  },
-  {
-    name: 'Tuberías PVC',
-    category: 'Instalaciones',
-    description: 'Sistemas de conducción de agua',
-    image: '🚰',
-  },
-  {
-    name: 'Cables Eléctricos',
-    category: 'Instalaciones',
-    description: 'Conductores para instalaciones eléctricas',
-    image: '⚡',
-  },
-  {
-    name: 'Cerámicos y Porcelanato',
-    category: 'Acabados',
-    description: 'Revestimientos de alta calidad',
-    image: '🔲',
-  },
+type Product = { name: string; category: string; description: string; icon: LucideIcon }
+
+const products: Product[] = [
+  { name: 'Cemento Portland', category: 'Materiales', description: 'Cemento de alta calidad para construcción.', icon: Package },
+  { name: 'Ladrillos', category: 'Materiales', description: 'Ladrillos de arcilla para muros y estructuras.', icon: BrickWall },
+  { name: 'Varillas de Acero', category: 'Materiales', description: 'Varillas corrugadas para refuerzo estructural.', icon: Columns3 },
+  { name: 'Arena y Piedra', category: 'Materiales', description: 'Agregados para concreto y mortero.', icon: Mountain },
+  { name: 'Taladro Percutor', category: 'Herramientas', description: 'Herramienta eléctrica profesional.', icon: Drill },
+  { name: 'Martillo Demoledor', category: 'Herramientas', description: 'Equipo pesado para demolición.', icon: Hammer },
+  { name: 'Nivel Láser', category: 'Herramientas', description: 'Equipo de precisión para nivelación.', icon: Crosshair },
+  { name: 'Andamios', category: 'Equipamiento', description: 'Sistemas modulares de seguridad.', icon: Construction },
+  { name: 'Pinturas y Barnices', category: 'Acabados', description: 'Productos de acabado y protección.', icon: PaintRoller },
+  { name: 'Tuberías PVC', category: 'Instalaciones', description: 'Sistemas de conducción de agua.', icon: Droplets },
+  { name: 'Cables Eléctricos', category: 'Instalaciones', description: 'Conductores para instalaciones eléctricas.', icon: Cable },
+  { name: 'Cerámicos y Porcelanato', category: 'Acabados', description: 'Revestimientos de alta calidad.', icon: LayoutGrid },
 ]
 
+const ALL = 'Todos'
+const categories = [ALL, ...Array.from(new Set(products.map((p) => p.category)))]
+
 export default function Products() {
-  const { ref, isVisible } = useScrollAnimation()
+  const [category, setCategory] = useState(ALL)
+  const visible = useMemo(
+    () => (category === ALL ? products : products.filter((p) => p.category === category)),
+    [category]
+  )
 
   return (
-    <section 
-      ref={ref as React.RefObject<HTMLElement>}
-      id="productos" 
-      className={`relative w-full bg-white px-6 md:px-12 py-16 md:py-24 transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
-    >
-      {/* Background Pattern - Diamond shapes */}
-      <div className="absolute inset-0 opacity-3">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(23,66,135,0.05) 50px, rgba(23,66,135,0.05) 51px, transparent 51px, transparent 100px)`,
-          backgroundSize: '100px 100px'
-        }}></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(23,66,135,0.05) 50px, rgba(23,66,135,0.05) 51px, transparent 51px, transparent 100px)`,
-          backgroundSize: '100px 100px'
-        }}></div>
-      </div>
+    <section id="productos" className="section relative bg-white">
+      <div className="container-page">
+        <SectionHeading
+          eyebrow="Catálogo"
+          title="Nuestros productos"
+          description="Todo lo que necesitas para tu proyecto de construcción, de las marcas líderes del mercado."
+        />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-azul-institucional mb-4">
-            Nuestros Productos
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Todo lo que necesitas para tu proyecto de construcción
-          </p>
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product, index) => (
-            <div
-              key={index}
-              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-amarillo-constructor hover:shadow-lg transition-all"
-            >
-              {/* Product Icon/Image */}
-              <div className="w-20 h-20 bg-amarillo-constructor rounded-xl flex items-center justify-center mb-4 text-4xl">
-                {product.image}
-              </div>
-
-              {/* Category Badge */}
-              <span className="inline-block bg-azul-institucional text-white text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                {product.category}
-              </span>
-
-              {/* Product Name */}
-              <h3 className="text-xl font-bold text-azul-institucional mb-2">
-                {product.name}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-600 text-sm">
-                {product.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <a
-            href="#contacto"
-            className="inline-block bg-amarillo-constructor text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all"
+        <Reveal>
+          <div
+            role="tablist"
+            aria-label="Filtrar por categoría"
+            className="-mx-5 mb-10 flex gap-2 overflow-x-auto px-5 pb-2 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0"
           >
-            Consultar Disponibilidad
+            {categories.map((cat) => {
+              const selected = cat === category
+              const count = cat === ALL ? products.length : products.filter((p) => p.category === cat).length
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  onClick={() => setCategory(cat)}
+                  className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                    selected
+                      ? 'border-navy-700 bg-navy-700 text-white shadow-card'
+                      : 'border-slate-200 bg-white text-slate-600 hover:border-navy-200 hover:text-navy-700'
+                  }`}
+                >
+                  {cat}
+                  <span
+                    className={`rounded-full px-1.5 text-xs ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-500'}`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </Reveal>
+
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-live="polite">
+          {visible.map(({ name, category: cat, description, icon: Icon }) => (
+            <li key={name} className="animate-fade-up">
+              <article className="card group relative flex h-full flex-col overflow-hidden p-6 hover:-translate-y-1 hover:border-amber-500/60 hover:shadow-card-hover">
+                <span
+                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-amber-500 transition-transform duration-300 group-hover:scale-x-100"
+                  aria-hidden="true"
+                />
+                <div className="flex items-start justify-between">
+                  <span className="icon-tile h-14 w-14 group-hover:bg-amber-500 group-hover:text-navy-950 group-hover:ring-amber-500">
+                    <Icon className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
+                  </span>
+                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">{cat}</span>
+                </div>
+                <h3 className="mt-6 text-lg font-bold">{name}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{description}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
+
+        <Reveal className="mt-14 flex flex-col items-center gap-4 text-center">
+          <p className="text-slate-600">¿No encuentras lo que buscas? Contamos con una amplia gama de productos.</p>
+          <a href="#contacto" className="btn-secondary group">
+            Consultar disponibilidad
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </a>
-        </div>
+        </Reveal>
       </div>
     </section>
   )
 }
-

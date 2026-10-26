@@ -8,6 +8,13 @@ Página web profesional para Socio Constructor - Seguridad y Confianza
 - React 18
 - TypeScript
 - Tailwind CSS
+- lucide-react (iconografía; el sitio no usa emojis)
+
+## Estructura
+
+- `src/lib/site.ts`: datos de contacto, enlaces y navegación en un solo lugar.
+- `src/components/ui`: piezas reutilizables (`SectionHeading`, `Reveal`).
+- `src/components`: secciones de la página (Hero, Nosotros, Por qué elegirnos, Productos, Servicios, Proyectos, Contacto, Footer).
 
 ## Instalación
 
