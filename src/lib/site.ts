@@ -5,7 +5,6 @@ export const site = {
   tagline: 'Seguridad y Confianza',
   description:
     'Comercializadora de materiales de construcción con más de 25 años de experiencia y cobertura a nivel nacional. Materiales, herramientas profesionales y asesoría técnica.',
-  storeUrl: 'https://www.promart.pe/?srsltid=AfmBOoqe2NP-W0iLFtWyhdCS1EnmIfqEqKuiGp0hCTAZRExSpeQ9ufza',
   emails: {
     admin: 'administracion@socioconstructor.pe',
     sales: 'ventas@socioconstructor.pe',

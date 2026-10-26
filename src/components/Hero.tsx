@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import { ArrowRight, Award, BadgeCheck, Headset, MapPinned, ShoppingCart, Truck } from 'lucide-react'
-import { site } from '@/lib/site'
+import { ArrowRight, Award, BadgeCheck, Headset, MapPinned, MessageSquareText, Truck } from 'lucide-react'
 import HeroPanel from './HeroPanel'
 
 const highlights = [
@@ -54,9 +53,9 @@ export default function Hero() {
             className="mt-10 flex animate-fade-up flex-col gap-3 sm:flex-row"
             style={{ animationDelay: '240ms' }}
           >
-            <a href={site.storeUrl} target="_blank" rel="noopener noreferrer" className="btn-primary px-7 py-4">
-              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-              Ir a Tienda Online
+            <a href="#contacto" className="btn-primary px-7 py-4">
+              <MessageSquareText className="h-5 w-5" aria-hidden="true" />
+              Solicitar información
             </a>
             <a href="#productos" className="btn-ghost-light group px-7 py-4">
               Ver Catálogo

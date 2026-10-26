@@ -1,5 +1,4 @@
-import { ArrowRight, Mail, ShoppingCart } from 'lucide-react'
-import { site } from '@/lib/site'
+import { ArrowRight, LayoutGrid, Mail } from 'lucide-react'
 import Reveal from './ui/Reveal'
 
 export default function CallToAction() {
@@ -26,17 +25,15 @@ export default function CallToAction() {
               <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a href="#contacto" className="btn group bg-navy-950 text-white hover:bg-navy-800">
                   <Mail className="h-5 w-5" aria-hidden="true" />
-                  Solicitar cotización
+                  Solicitar información
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </a>
                 <a
-                  href={site.storeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#productos"
                   className="btn border border-navy-950/20 bg-white/40 text-navy-950 hover:bg-white/70"
                 >
-                  <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-                  Tienda Online
+                  <LayoutGrid className="h-5 w-5" aria-hidden="true" />
+                  Ver catálogo
                 </a>
               </div>
             </div>
