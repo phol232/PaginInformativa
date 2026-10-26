@@ -22,13 +22,13 @@ function validate(f: Fields): Errors {
 }
 
 const inputBase =
-  'block w-full rounded-lg border bg-white px-4 py-3 text-[15px] text-navy-950 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-4'
+  'block w-full rounded-lg border bg-white dark:bg-navy-900 px-4 py-3 text-[15px] text-navy-950 placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:ring-4'
 
 function inputClass(hasError: boolean) {
   return `${inputBase} ${
     hasError
-      ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
-      : 'border-slate-300 focus:border-navy-600 focus:ring-navy-100'
+      ? 'border-red-400 focus:border-red-500 focus:ring-red-100 dark:focus:ring-red-500/20'
+      : 'border-slate-300 dark:border-white/15 focus:border-navy-600 focus:ring-navy-100 dark:focus:border-amber-500 dark:focus:ring-amber-500/20'
   }`
 }
 
@@ -92,7 +92,7 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contacto" className="section relative bg-slate-50">
+    <section id="contacto" className="section relative bg-slate-50 dark:bg-navy-900/40">
       <div className="bg-blueprint-light absolute inset-0" aria-hidden="true" />
       <div className="container-page relative">
         <SectionHeading
@@ -106,12 +106,12 @@ export default function Contact() {
           <Reveal className="min-w-0 lg:col-span-7">
             <div className="card p-6 sm:p-10">
               <h3 className="text-2xl font-bold">Envíanos un mensaje</h3>
-              <p className="mt-1 text-sm text-slate-500">Los campos marcados con * son obligatorios.</p>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Los campos marcados con * son obligatorios.</p>
 
               {sent && (
                 <div
                   role="status"
-                  className="mt-6 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800"
+                  className="mt-6 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300"
                 >
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
                   <p>
@@ -270,12 +270,12 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={`contact-${id}`} className="mb-2 block text-sm font-medium text-navy-900">
+      <label htmlFor={`contact-${id}`} className="mb-2 block text-sm font-medium text-navy-900 dark:text-white">
         {label}
       </label>
       {children}
       {error && (
-        <p id={`contact-${id}-error`} className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600">
+        <p id={`contact-${id}-error`} className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600 dark:text-red-400">
           <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
           {error}
         </p>

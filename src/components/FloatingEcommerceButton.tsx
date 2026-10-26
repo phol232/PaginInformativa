@@ -21,7 +21,7 @@ export default function FloatingEcommerceButton() {
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="Volver arriba"
         tabIndex={showTop ? 0 : -1}
-        className={`flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy-700 shadow-card-hover ring-1 ring-slate-200 transition-all duration-300 hover:bg-navy-50 ${
+        className={`flex h-11 w-11 items-center justify-center rounded-full bg-white dark:bg-navy-900 text-navy-700 dark:text-navy-100 shadow-card-hover ring-1 ring-slate-200 dark:ring-white/10 transition-all duration-300 hover:bg-navy-50 dark:hover:bg-navy-800 ${
           showTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
         }`}
       >

@@ -48,7 +48,7 @@ export default function Products() {
   )
 
   return (
-    <section id="productos" className="section relative bg-white">
+    <section id="productos" className="section relative bg-white dark:bg-navy-950">
       <div className="container-page">
         <SectionHeading
           eyebrow="Catálogo"
@@ -75,12 +75,12 @@ export default function Products() {
                   className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                     selected
                       ? 'border-navy-700 bg-navy-700 text-white shadow-card'
-                      : 'border-slate-200 bg-white text-slate-600 hover:border-navy-200 hover:text-navy-700'
+                      : 'border-slate-200 dark:border-white/10 bg-white dark:bg-navy-900 text-slate-600 dark:text-slate-400 hover:border-navy-200 hover:text-navy-700'
                   }`}
                 >
                   {cat}
                   <span
-                    className={`rounded-full px-1.5 text-xs ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-500'}`}
+                    className={`rounded-full px-1.5 text-xs ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'}`}
                   >
                     {count}
                   </span>
@@ -102,17 +102,17 @@ export default function Products() {
                   <span className="icon-tile h-14 w-14 group-hover:bg-amber-500 group-hover:text-navy-950 group-hover:ring-amber-500">
                     <Icon className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
                   </span>
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">{cat}</span>
+                  <span className="rounded-full bg-slate-100 dark:bg-white/10 px-2.5 py-1 text-xs font-medium text-slate-600 dark:text-slate-400">{cat}</span>
                 </div>
                 <h3 className="mt-6 text-lg font-bold">{name}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{description}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate-500 dark:text-slate-400">{description}</p>
               </article>
             </li>
           ))}
         </ul>
 
         <Reveal className="mt-14 flex flex-col items-center gap-4 text-center">
-          <p className="text-slate-600">¿No encuentras lo que buscas? Contamos con una amplia gama de productos.</p>
+          <p className="text-slate-600 dark:text-slate-400">¿No encuentras lo que buscas? Contamos con una amplia gama de productos.</p>
           <a href="#contacto" className="btn-secondary group">
             Consultar disponibilidad
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />

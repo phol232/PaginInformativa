@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Menu, ShoppingCart, X } from 'lucide-react'
 import { navItems, site } from '@/lib/site'
+import ThemeToggle from './ui/ThemeToggle'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -91,6 +92,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a
             href={site.storeUrl}
             target="_blank"
