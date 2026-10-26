@@ -103,8 +103,8 @@ export default function Contact() {
 
         <div className="grid gap-8 lg:grid-cols-12">
           {/* Formulario */}
-          <Reveal className="min-w-0 lg:col-span-7">
-            <div className="card p-6 sm:p-10">
+          <Reveal className="min-w-0 lg:order-2 lg:col-span-7">
+            <div className="card h-full p-6 sm:p-10">
               <h3 className="text-2xl font-bold">Envíanos un mensaje</h3>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Los campos marcados con * son obligatorios.</p>
 
@@ -201,7 +201,7 @@ export default function Contact() {
           </Reveal>
 
           {/* Información */}
-          <Reveal className="min-w-0 lg:col-span-5" delay={100}>
+          <Reveal className="min-w-0 lg:order-1 lg:col-span-5" delay={100}>
             <div className="relative h-full overflow-hidden rounded-2xl bg-navy-700 p-6 text-white shadow-card sm:p-10">
               <div className="bg-blueprint absolute inset-0" aria-hidden="true" />
               <div className="relative">
