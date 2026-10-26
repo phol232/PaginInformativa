@@ -49,7 +49,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="proyectos" className="section bg-white">
+    <section id="proyectos" className="section bg-white dark:bg-navy-950">
       <div className="container-page">
         <SectionHeading
           eyebrow="Proyectos"
@@ -76,12 +76,12 @@ export default function Projects() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <p className="flex items-center gap-1.5 text-sm font-medium text-slate-500">
+                  <p className="flex items-center gap-1.5 text-sm font-medium text-slate-500 dark:text-slate-400">
                     <CalendarDays className="h-4 w-4" aria-hidden="true" />
                     {year}
                   </p>
-                  <h3 className="mt-2 text-xl font-bold transition-colors group-hover:text-navy-600">{title}</h3>
-                  <p className="mt-2 leading-relaxed text-slate-600">{description}</p>
+                  <h3 className="mt-2 text-xl font-bold transition-colors group-hover:text-navy-600 dark:group-hover:text-amber-400">{title}</h3>
+                  <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-400">{description}</p>
                 </div>
               </article>
             </Reveal>

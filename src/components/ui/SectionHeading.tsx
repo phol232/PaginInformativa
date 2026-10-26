@@ -28,13 +28,13 @@ export default function SectionHeading({
       </span>
       <h2
         className={`mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.75rem] ${
-          dark ? 'text-white' : 'text-navy-900'
+          dark ? 'text-white' : 'text-navy-900 dark:text-white'
         }`}
       >
         {title}
       </h2>
       {description && (
-        <p className={`mt-5 text-lg leading-relaxed ${dark ? 'text-navy-100/80' : 'text-slate-600'}`}>
+        <p className={`mt-5 text-lg leading-relaxed ${dark ? 'text-navy-100/80' : 'text-slate-600 dark:text-slate-400'}`}>
           {description}
         </p>
       )}

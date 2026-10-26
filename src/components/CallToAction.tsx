@@ -4,7 +4,7 @@ import Reveal from './ui/Reveal'
 
 export default function CallToAction() {
   return (
-    <section className="bg-white pb-20 md:pb-28">
+    <section className="bg-white dark:bg-navy-950 pb-20 md:pb-28">
       <div className="container-page">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-amber-500 px-8 py-12 sm:px-14 sm:py-16">

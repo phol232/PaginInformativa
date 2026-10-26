@@ -76,20 +76,20 @@ export default function Hero() {
       {/* Franja de indicadores */}
       <div className="absolute inset-x-0 bottom-0 translate-y-1/2">
         <div className="container-page">
-          <ul className="grid grid-cols-2 overflow-hidden rounded-2xl bg-white shadow-card-hover ring-1 ring-slate-200 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 overflow-hidden rounded-2xl bg-white dark:bg-navy-900 shadow-card-hover ring-1 ring-slate-200 dark:ring-white/10 lg:grid-cols-4">
             {highlights.map(({ icon: Icon, value, label }, i) => (
               <li
                 key={value}
-                className={`flex items-center gap-4 p-5 sm:p-6 ${i % 2 === 1 ? 'border-l border-slate-100' : ''} ${
-                  i > 1 ? 'border-t border-slate-100 lg:border-t-0' : ''
+                className={`flex items-center gap-4 p-5 sm:p-6 ${i % 2 === 1 ? 'border-l border-slate-100 dark:border-white/10' : ''} ${
+                  i > 1 ? 'border-t border-slate-100 dark:border-white/10 lg:border-t-0' : ''
                 } ${i === 2 ? 'lg:border-l' : ''}`}
               >
                 <span className="icon-tile hidden sm:flex">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="font-display text-lg font-bold text-navy-900 sm:text-xl">{value}</p>
-                  <p className="text-sm text-slate-500">{label}</p>
+                  <p className="font-display text-lg font-bold text-navy-900 dark:text-white sm:text-xl">{value}</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
                 </div>
               </li>
             ))}

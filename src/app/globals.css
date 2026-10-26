@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-slate-700 antialiased;
+    @apply bg-white font-sans text-slate-700 antialiased dark:bg-navy-950 dark:text-slate-300;
     text-rendering: optimizeLegibility;
   }
 
@@ -17,7 +17,7 @@
   h2,
   h3,
   h4 {
-    @apply font-display text-navy-900;
+    @apply font-display text-navy-900 dark:text-white;
     letter-spacing: -0.01em;
   }
 
@@ -25,8 +25,12 @@
     @apply bg-amber-500 text-navy-950;
   }
 
+  .dark {
+    color-scheme: dark;
+  }
+
   :focus-visible {
-    @apply outline-none ring-2 ring-amber-500 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-2 ring-amber-500 ring-offset-2 ring-offset-white dark:ring-offset-navy-950;
   }
 }
 
@@ -40,7 +44,7 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-600;
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-400;
   }
 
   .btn {
@@ -52,7 +56,7 @@
   }
 
   .btn-secondary {
-    @apply btn bg-navy-700 text-white hover:bg-navy-800;
+    @apply btn bg-navy-700 text-white hover:bg-navy-800 dark:bg-navy-600 dark:hover:bg-navy-700;
   }
 
   .btn-ghost-light {
@@ -60,11 +64,11 @@
   }
 
   .card {
-    @apply rounded-2xl border border-slate-200/80 bg-white shadow-card transition-all duration-300;
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-card transition-all duration-300 dark:border-white/10 dark:bg-navy-900;
   }
 
   .icon-tile {
-    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-700 ring-1 ring-inset ring-navy-100 transition-colors duration-300;
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-700 ring-1 ring-inset ring-navy-100 transition-colors duration-300 dark:bg-white/5 dark:text-amber-400 dark:ring-white/10;
   }
 
   .bg-blueprint {
@@ -80,6 +84,12 @@
       linear-gradient(90deg, rgba(23, 66, 135, 0.045) 1px, transparent 1px);
     background-size: 48px 48px;
   }
+}
+
+.dark .bg-blueprint-light {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
 @media (prefers-reduced-motion: reduce) {

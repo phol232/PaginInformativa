@@ -21,7 +21,7 @@ const sectors = ['Hospitales', 'Universidades', 'Hoteles', 'Represas', 'Hidroel�
 
 export default function About() {
   return (
-    <section id="nosotros" className="section relative bg-slate-50 pt-40 lg:pt-44">
+    <section id="nosotros" className="section relative bg-slate-50 dark:bg-navy-900/40 pt-40 lg:pt-44">
       <div className="bg-blueprint-light absolute inset-0" aria-hidden="true" />
       <div className="container-page relative">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -32,13 +32,13 @@ export default function About() {
               title="Política de Gestión de Calidad"
               description={
                 <>
-                  Somos <strong className="font-semibold text-navy-800">Socio Constructor S.A.C.</strong>, empresa
+                  Somos <strong className="font-semibold text-navy-800 dark:text-white">Socio Constructor S.A.C.</strong>, empresa
                   comercializadora de materiales de construcción a precios competitivos, con cobertura a nivel nacional.
                 </>
               }
             />
             <Reveal>
-              <p className="leading-relaxed text-slate-600">
+              <p className="leading-relaxed text-slate-600 dark:text-slate-400">
                 Trabajamos con las marcas y productos líderes del mercado, priorizando la máxima calidad, permitiendo
                 que nuestros clientes lleven a cabo proyectos exitosos en diversas áreas:
               </p>
@@ -46,7 +46,7 @@ export default function About() {
                 {sectors.map((sector) => (
                   <li
                     key={sector}
-                    className="rounded-full border border-navy-100 bg-white px-3.5 py-1.5 text-sm font-medium text-navy-700"
+                    className="rounded-full border border-navy-100 dark:border-white/10 bg-white dark:bg-navy-900 px-3.5 py-1.5 text-sm font-medium text-navy-700 dark:text-navy-100"
                   >
                     {sector}
                   </li>
@@ -64,7 +64,7 @@ export default function About() {
                     <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-navy-950">
                       <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
                     </span>
-                    <p className="leading-relaxed text-slate-600">{item}</p>
+                    <p className="leading-relaxed text-slate-600 dark:text-slate-400">{item}</p>
                   </li>
                 ))}
               </ul>
@@ -80,7 +80,7 @@ export default function About() {
                 <Target className="h-6 w-6" aria-hidden="true" />
               </span>
               <h3 className="mt-6 text-2xl font-bold">Misión</h3>
-              <p className="mt-3 leading-relaxed text-slate-600">
+              <p className="mt-3 leading-relaxed text-slate-600 dark:text-slate-400">
                 Ser un aliado estratégico para cubrir y concretar proyectos mediante la comercialización de materiales
                 de construcción con la mejor calidad, garantía y al mejor precio. Brindando soluciones integrales, con
                 asesoría personalizada y profesional para nuestros clientes.
@@ -94,7 +94,7 @@ export default function About() {
                 <Eye className="h-6 w-6" aria-hidden="true" />
               </span>
               <h3 className="mt-6 text-2xl font-bold">Visión</h3>
-              <p className="mt-3 leading-relaxed text-slate-600">
+              <p className="mt-3 leading-relaxed text-slate-600 dark:text-slate-400">
                 En 2030, ser reconocidos a nivel nacional generando la confianza y referencia en la industria de la
                 construcción, apoyados por un excelente grupo de proveedores, el compromiso de nuestros colaboradores y
                 fidelidad de los clientes.

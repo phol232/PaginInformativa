@@ -34,7 +34,7 @@ const steps = [
 
 export default function Services() {
   return (
-    <section id="servicios" className="section relative bg-slate-50">
+    <section id="servicios" className="section relative bg-slate-50 dark:bg-navy-900/40">
       <div className="bg-blueprint-light absolute inset-0" aria-hidden="true" />
       <div className="container-page relative">
         <SectionHeading
@@ -51,7 +51,7 @@ export default function Services() {
                   <Icon className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
                 </span>
                 <h3 className="mt-6 text-xl font-bold">{title}</h3>
-                <p className="mt-2 leading-relaxed text-slate-600">{text}</p>
+                <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-400">{text}</p>
               </article>
             </Reveal>
           ))}
@@ -59,16 +59,16 @@ export default function Services() {
 
         {/* Proceso de trabajo */}
         <Reveal className="mt-20">
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-card sm:p-12">
+          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-navy-900 p-8 shadow-card sm:p-12">
             <h3 className="text-center text-2xl font-bold sm:text-3xl">¿Cómo trabajamos?</h3>
             <ol className="relative mt-12 grid gap-10 md:grid-cols-4 md:gap-6">
               <span
-                className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px border-t-2 border-dashed border-navy-100 md:block"
+                className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px border-t-2 border-dashed border-navy-100 dark:border-white/10 md:block"
                 aria-hidden="true"
               />
               {steps.map(({ icon: Icon, title, text }, i) => (
                 <li key={title} className="relative flex gap-4 md:flex-col md:items-center md:text-center">
-                  <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-navy-700 ring-2 ring-navy-100">
+                  <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white dark:bg-navy-900 text-navy-700 dark:text-navy-100 ring-2 ring-navy-100 dark:ring-white/15">
                     <Icon className="h-6 w-6" aria-hidden="true" />
                     <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 font-display text-xs font-bold text-navy-950">
                       {i + 1}
@@ -76,7 +76,7 @@ export default function Services() {
                   </span>
                   <div>
                     <h4 className="text-lg font-bold md:mt-5">{title}</h4>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-500">{text}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">{text}</p>
                   </div>
                 </li>
               ))}
