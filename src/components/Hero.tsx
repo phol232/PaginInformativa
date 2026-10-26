@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { ArrowRight, Award, BadgeCheck, Headset, MapPinned, ShoppingCart, Truck } from 'lucide-react'
 import { site } from '@/lib/site'
+import HeroPanel from './HeroPanel'
 
 const highlights = [
   { icon: Award, value: '+25 años', label: 'de trayectoria en el sector' },
@@ -26,15 +27,15 @@ export default function Hero() {
       />
       <div className="bg-blueprint absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
 
-      <div className="container-page pb-36 pt-20 sm:pt-28 lg:pb-44 lg:pt-32">
-        <div className="max-w-2xl">
+      <div className="container-page grid items-center gap-12 pb-36 pt-20 sm:pt-28 lg:grid-cols-12 lg:pb-44 lg:pt-28 xl:gap-16">
+        <div className="max-w-2xl lg:col-span-7">
           <span className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-400 backdrop-blur-sm">
             <BadgeCheck className="h-4 w-4" aria-hidden="true" />
             Más de 25 años de experiencia
           </span>
 
           <h1
-            className="mt-6 animate-fade-up text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl"
+            className="mt-6 animate-fade-up text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl"
             style={{ animationDelay: '80ms' }}
           >
             Construye tus sueños
@@ -70,6 +71,10 @@ export default function Hero() {
             <Truck className="h-4 w-4 text-amber-500" aria-hidden="true" />
             Atendemos proyectos en todo el territorio nacional
           </p>
+        </div>
+
+        <div className="hidden lg:col-span-5 lg:block">
+          <HeroPanel />
         </div>
       </div>
 

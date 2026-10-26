@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   ArrowRight,
@@ -37,11 +37,23 @@ const products: Product[] = [
   { name: 'Cerámicos y Porcelanato', category: 'Acabados', description: 'Revestimientos de alta calidad.', icon: LayoutGrid },
 ]
 
+export const PRODUCT_FILTER_EVENT = 'products:filter'
+
 const ALL = 'Todos'
 const categories = [ALL, ...Array.from(new Set(products.map((p) => p.category)))]
 
 export default function Products() {
   const [category, setCategory] = useState(ALL)
+
+  // Permite que otras secciones (p. ej. el Hero) abran una categoría
+  useEffect(() => {
+    const onFilter = (e: Event) => {
+      const requested = (e as CustomEvent<string>).detail
+      if (categories.includes(requested)) setCategory(requested)
+    }
+    window.addEventListener(PRODUCT_FILTER_EVENT, onFilter)
+    return () => window.removeEventListener(PRODUCT_FILTER_EVENT, onFilter)
+  }, [])
   const visible = useMemo(
     () => (category === ALL ? products : products.filter((p) => p.category === category)),
     [category]
