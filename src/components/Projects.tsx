@@ -1,129 +1,99 @@
-'use client'
-
-import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { ArrowRight, Building2, CalendarDays, Droplets, GraduationCap, Hospital, Hotel, Zap } from 'lucide-react'
+import SectionHeading from './ui/SectionHeading'
+import Reveal from './ui/Reveal'
 
 const projects = [
   {
     title: 'Hospital Regional',
     category: 'Salud',
     description: 'Suministro de materiales para construcción de hospital de 5 pisos.',
-    image: '🏥',
+    icon: Hospital,
     year: '2024',
   },
   {
     title: 'Universidad Nacional',
     category: 'Educación',
     description: 'Materiales y herramientas para edificio de aulas modernas.',
-    image: '🎓',
+    icon: GraduationCap,
     year: '2023',
   },
   {
     title: 'Hotel 5 Estrellas',
     category: 'Hotelería',
     description: 'Acabados de lujo y materiales premium para hotel boutique.',
-    image: '🏨',
+    icon: Hotel,
     year: '2024',
   },
   {
     title: 'Represa Hidroeléctrica',
     category: 'Energía',
     description: 'Suministro de concreto y acero para infraestructura energética.',
-    image: '⚡',
+    icon: Zap,
     year: '2023',
   },
   {
     title: 'Edificio Corporativo',
     category: 'Comercial',
     description: 'Torre de oficinas de 20 pisos en zona financiera.',
-    image: '🏢',
+    icon: Building2,
     year: '2024',
   },
   {
     title: 'Sistema de Saneamiento',
     category: 'Infraestructura',
     description: 'Tuberías y materiales para red de agua potable municipal.',
-    image: '💧',
+    icon: Droplets,
     year: '2023',
   },
 ]
 
 export default function Projects() {
-  const { ref, isVisible } = useScrollAnimation()
-
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      id="proyectos"
-      className={`relative w-full bg-gray-50 px-6 md:px-12 py-16 md:py-24 transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-3">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(23,66,135,0.05) 50px, rgba(23,66,135,0.05) 51px, transparent 51px, transparent 100px)`,
-          backgroundSize: '100px 100px'
-        }}></div>
-      </div>
+    <section id="proyectos" className="section bg-white">
+      <div className="container-page">
+        <SectionHeading
+          eyebrow="Proyectos"
+          title="Experiencia en obras de gran envergadura"
+          description="Hemos participado en proyectos de diversos sectores a nivel nacional."
+        />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-azul-institucional mb-4">
-            Nuestros Proyectos
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Hemos participado en proyectos de gran envergadura a nivel nacional
-          </p>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
-            >
-              {/* Project Image/Icon */}
-              <div className="h-48 bg-gradient-to-br from-azul-institucional to-blue-900 flex items-center justify-center text-8xl">
-                {project.image}
-              </div>
-
-              {/* Project Content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="inline-block bg-amarillo-constructor text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    {project.category}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map(({ title, category, description, icon: Icon, year }, i) => (
+            <Reveal key={title} delay={(i % 3) * 80} className="h-full">
+              <article className="card group flex h-full flex-col overflow-hidden hover:-translate-y-1 hover:shadow-card-hover">
+                <div className="relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br from-navy-700 to-navy-950">
+                  <div className="bg-blueprint absolute inset-0" aria-hidden="true" />
+                  <Icon
+                    className="absolute -bottom-6 -right-6 h-40 w-40 text-white/[0.06] transition-transform duration-500 group-hover:scale-110"
+                    strokeWidth={1}
+                    aria-hidden="true"
+                  />
+                  <span className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 text-amber-400 ring-1 ring-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105">
+                    <Icon className="h-10 w-10" strokeWidth={1.5} aria-hidden="true" />
                   </span>
-                  <span className="text-sm text-gray-500 font-semibold">
-                    {project.year}
+                  <span className="absolute left-4 top-4 rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold text-navy-950">
+                    {category}
                   </span>
                 </div>
-
-                <h3 className="text-2xl font-bold text-azul-institucional mb-3 group-hover:text-amarillo-constructor transition-colors">
-                  {project.title}
-                </h3>
-
-                <p className="text-gray-600 leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="flex items-center gap-1.5 text-sm font-medium text-slate-500">
+                    <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                    {year}
+                  </p>
+                  <h3 className="mt-2 text-xl font-bold transition-colors group-hover:text-navy-600">{title}</h3>
+                  <p className="mt-2 leading-relaxed text-slate-600">{description}</p>
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <p className="text-xl text-azul-institucional font-semibold mb-6">
-            ¿Tienes un proyecto en mente?
-          </p>
-          <a
-            href="#contacto"
-            className="inline-block bg-amarillo-constructor text-white px-10 py-5 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
-          >
-            Cuéntanos tu Proyecto
+        <Reveal className="mt-14 text-center">
+          <a href="#contacto" className="btn-secondary group">
+            Cuéntanos tu proyecto
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </a>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

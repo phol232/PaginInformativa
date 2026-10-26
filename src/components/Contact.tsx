@@ -1,172 +1,285 @@
 'use client'
 
-import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useState, type FormEvent } from 'react'
+import { AlertCircle, CheckCircle2, Clock, Facebook, Globe, Instagram, Mail, MapPin, Phone, Send } from 'lucide-react'
+import { site } from '@/lib/site'
+import SectionHeading from './ui/SectionHeading'
+import Reveal from './ui/Reveal'
+
+type Fields = { name: string; email: string; phone: string; topic: string; message: string }
+type Errors = Partial<Record<keyof Fields, string>>
+
+const initial: Fields = { name: '', email: '', phone: '', topic: 'Cotización de materiales', message: '' }
+const topics = ['Cotización de materiales', 'Herramientas y equipos', 'Asesoría técnica', 'Proyecto corporativo', 'Otro']
+
+function validate(f: Fields): Errors {
+  const errors: Errors = {}
+  if (f.name.trim().length < 2) errors.name = 'Ingresa tu nombre completo.'
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = 'Ingresa un correo electrónico válido.'
+  if (f.phone && !/^[+\d\s()-]{6,}$/.test(f.phone.trim())) errors.phone = 'Ingresa un teléfono válido.'
+  if (f.message.trim().length < 10) errors.message = 'Cuéntanos un poco más (mínimo 10 caracteres).'
+  return errors
+}
+
+const inputBase =
+  'block w-full rounded-lg border bg-white px-4 py-3 text-[15px] text-navy-950 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-4'
+
+function inputClass(hasError: boolean) {
+  return `${inputBase} ${
+    hasError
+      ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
+      : 'border-slate-300 focus:border-navy-600 focus:ring-navy-100'
+  }`
+}
 
 export default function Contact() {
-  const { ref, isVisible } = useScrollAnimation()
+  const [fields, setFields] = useState<Fields>(initial)
+  const [errors, setErrors] = useState<Errors>({})
+  const [sent, setSent] = useState(false)
+
+  const update = (key: keyof Fields) => (e: { target: { value: string } }) => {
+    setFields((prev) => ({ ...prev, [key]: e.target.value }))
+    if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
+  }
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const found = validate(fields)
+    setErrors(found)
+    if (Object.keys(found).length > 0) {
+      const first = Object.keys(found)[0]
+      document.getElementById(`contact-${first}`)?.focus()
+      return
+    }
+
+    const details = [
+      `Nombre: ${fields.name}`,
+      `Correo: ${fields.email}`,
+      ...(fields.phone ? [`Teléfono: ${fields.phone}`] : []),
+      `Tipo de consulta: ${fields.topic}`,
+    ]
+    const body = `${details.join('\n')}\n\n${fields.message}`
+
+    window.location.href = `mailto:${site.emails.sales}?subject=${encodeURIComponent(
+      `${fields.topic} — ${fields.name}`
+    )}&body=${encodeURIComponent(body)}`
+    setSent(true)
+    setFields(initial)
+  }
+
+  const contactItems = [
+    {
+      icon: Mail,
+      title: 'Correo electrónico',
+      content: (
+        <>
+          <a href={`mailto:${site.emails.admin}`} className="block hover:text-navy-600">{site.emails.admin}</a>
+          <a href={`mailto:${site.emails.sales}`} className="block hover:text-navy-600">{site.emails.sales}</a>
+        </>
+      ),
+    },
+    {
+      icon: Phone,
+      title: 'Teléfono',
+      content: <a href={site.phone.href} className="hover:text-navy-600">{site.phone.label}</a>,
+    },
+    { icon: MapPin, title: 'Dirección', content: site.address },
+    {
+      icon: Globe,
+      title: 'Sitio web',
+      content: <a href={site.url} className="hover:text-navy-600">socioconstructor.pe</a>,
+    },
+  ]
 
   return (
-    <section 
-      ref={ref as React.RefObject<HTMLElement>}
-      id="contacto" 
-      className={`relative w-full bg-white px-6 md:px-12 py-16 md:py-24 transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
-    >
-      {/* Background Pattern - Diamond shapes */}
-      <div className="absolute inset-0 opacity-3">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(23,66,135,0.05) 50px, rgba(23,66,135,0.05) 51px, transparent 51px, transparent 100px)`,
-          backgroundSize: '100px 100px'
-        }}></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(23,66,135,0.05) 50px, rgba(23,66,135,0.05) 51px, transparent 51px, transparent 100px)`,
-          backgroundSize: '100px 100px'
-        }}></div>
-      </div>
+    <section id="contacto" className="section relative bg-slate-50">
+      <div className="bg-blueprint-light absolute inset-0" aria-hidden="true" />
+      <div className="container-page relative">
+        <SectionHeading
+          eyebrow="Contacto"
+          title="Hablemos de tu próximo proyecto"
+          description="Estamos aquí para ayudarte. Escríbenos y un asesor te responderá a la brevedad."
+        />
 
-      <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-azul-institucional mb-4">
-            Contáctanos
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Estamos aquí para ayudarte en tu próximo proyecto
-          </p>
-        </div>
+        <div className="grid gap-8 lg:grid-cols-12">
+          {/* Formulario */}
+          <Reveal className="min-w-0 lg:col-span-7">
+            <div className="card p-6 sm:p-10">
+              <h3 className="text-2xl font-bold">Envíanos un mensaje</h3>
+              <p className="mt-1 text-sm text-slate-500">Los campos marcados con * son obligatorios.</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Form - LEFT */}
-          <div>
-            <h3 className="text-2xl font-bold text-azul-institucional mb-6">
-              Envíanos un Mensaje
-            </h3>
-            
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Nombre Completo
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amarillo-constructor focus:outline-none transition-colors"
-                  placeholder="Tu nombre"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Correo Electrónico
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amarillo-constructor focus:outline-none transition-colors"
-                  placeholder="tu@email.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Teléfono
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amarillo-constructor focus:outline-none transition-colors"
-                  placeholder="+51 999 999 999"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Mensaje
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amarillo-constructor focus:outline-none transition-colors resize-none"
-                  placeholder="Cuéntanos sobre tu proyecto..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-amarillo-constructor text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all"
-              >
-                Enviar Mensaje
-              </button>
-            </form>
-          </div>
-
-          {/* Contact Information - RIGHT */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-azul-institucional mb-6">
-                Información de Contacto
-              </h3>
-              
-              <div className="space-y-6">
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-amarillo-constructor rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Correo Electrónico</h4>
-                    <a href="mailto:administracion@socioconstructor.pe" className="text-azul-institucional hover:text-amarillo-constructor">
-                      administracion@socioconstructor.pe
-                    </a>
-                    <br />
-                    <a href="mailto:ventas@socioconstructor.pe" className="text-azul-institucional hover:text-amarillo-constructor">
-                      ventas@socioconstructor.pe
-                    </a>
-                  </div>
+              {sent && (
+                <div
+                  role="status"
+                  className="mt-6 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800"
+                >
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                  <p>
+                    Abrimos tu aplicación de correo con el mensaje listo para enviar. Si no se abrió, escríbenos
+                    directamente a <strong>{site.emails.sales}</strong>.
+                  </p>
                 </div>
+              )}
 
-                {/* Social Media */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-amarillo-constructor rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Redes Sociales</h4>
-                    <p className="text-gray-600">Facebook e Instagram</p>
-                    <a href="#" className="text-azul-institucional hover:text-amarillo-constructor">
-                      @SocioConstructor
-                    </a>
-                  </div>
+              <form onSubmit={onSubmit} noValidate className="mt-8 grid gap-5 sm:grid-cols-2">
+                <Field id="name" label="Nombre completo *" error={errors.name}>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    autoComplete="name"
+                    value={fields.name}
+                    onChange={update('name')}
+                    placeholder="Tu nombre"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                    className={inputClass(!!errors.name)}
+                  />
+                </Field>
+
+                <Field id="email" label="Correo electrónico *" error={errors.email}>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    autoComplete="email"
+                    value={fields.email}
+                    onChange={update('email')}
+                    placeholder="tu@email.com"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                    className={inputClass(!!errors.email)}
+                  />
+                </Field>
+
+                <Field id="phone" label="Teléfono" error={errors.phone}>
+                  <input
+                    id="contact-phone"
+                    type="tel"
+                    autoComplete="tel"
+                    value={fields.phone}
+                    onChange={update('phone')}
+                    placeholder="+51 999 999 999"
+                    aria-invalid={!!errors.phone}
+                    aria-describedby={errors.phone ? 'contact-phone-error' : undefined}
+                    className={inputClass(!!errors.phone)}
+                  />
+                </Field>
+
+                <Field id="topic" label="Tipo de consulta">
+                  <select
+                    id="contact-topic"
+                    value={fields.topic}
+                    onChange={update('topic')}
+                    className={inputClass(false)}
+                  >
+                    {topics.map((t) => (
+                      <option key={t}>{t}</option>
+                    ))}
+                  </select>
+                </Field>
+
+                <Field id="message" label="Mensaje *" error={errors.message} className="sm:col-span-2">
+                  <textarea
+                    id="contact-message"
+                    rows={5}
+                    value={fields.message}
+                    onChange={update('message')}
+                    placeholder="Cuéntanos sobre tu proyecto: tipo de obra, materiales, cantidades, ubicación..."
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
+                    className={`${inputClass(!!errors.message)} resize-y`}
+                  />
+                </Field>
+
+                <div className="sm:col-span-2">
+                  <button type="submit" className="btn-primary w-full py-4 text-base sm:w-auto sm:px-10">
+                    <Send className="h-5 w-5" aria-hidden="true" />
+                    Enviar mensaje
+                  </button>
                 </div>
+              </form>
+            </div>
+          </Reveal>
 
-                {/* Website */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-amarillo-constructor rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Sitio Web</h4>
-                    <a href="https://socioconstructor.pe" className="text-azul-institucional hover:text-amarillo-constructor">
-                      socioconstructor.pe
+          {/* Información */}
+          <Reveal className="min-w-0 lg:col-span-5" delay={100}>
+            <div className="relative h-full overflow-hidden rounded-2xl bg-navy-700 p-6 text-white shadow-card sm:p-10">
+              <div className="bg-blueprint absolute inset-0" aria-hidden="true" />
+              <div className="relative">
+                <h3 className="text-2xl font-bold text-white">Información de contacto</h3>
+                <p className="mt-2 text-navy-100/75">Atendemos consultas de empresas, contratistas y particulares.</p>
+
+                <ul className="mt-8 space-y-6">
+                  {contactItems.map(({ icon: Icon, title, content }) => (
+                    <li key={title} className="flex gap-4">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-navy-950">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0 break-words">
+                        <p className="text-sm font-semibold uppercase tracking-wide text-navy-100/60">{title}</p>
+                        <div className="mt-1 text-white [&_a]:transition-colors [&_a:hover]:text-amber-400">{content}</div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-10 border-t border-white/10 pt-8">
+                  <p className="flex items-center gap-2 text-sm text-navy-100/75">
+                    <Clock className="h-4 w-4 text-amber-400" aria-hidden="true" />
+                    Respuesta en horario de oficina
+                  </p>
+                  <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy-100/60">Síguenos</p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <a
+                      href={site.social.facebook}
+                      aria-label="Facebook"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white transition-colors hover:bg-amber-500 hover:text-navy-950"
+                    >
+                      <Facebook className="h-5 w-5" aria-hidden="true" />
                     </a>
+                    <a
+                      href={site.social.instagram}
+                      aria-label="Instagram"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white transition-colors hover:bg-amber-500 hover:text-navy-950"
+                    >
+                      <Instagram className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                    <span className="ml-1 text-sm text-navy-100/80">{site.social.handle}</span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
+  )
+}
+
+function Field({
+  id,
+  label,
+  error,
+  className = '',
+  children,
+}: {
+  id: string
+  label: string
+  error?: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className={className}>
+      <label htmlFor={`contact-${id}`} className="mb-2 block text-sm font-medium text-navy-900">
+        {label}
+      </label>
+      {children}
+      {error && (
+        <p id={`contact-${id}-error`} className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600">
+          <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+          {error}
+        </p>
+      )}
+    </div>
   )
 }
